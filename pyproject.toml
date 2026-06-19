@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eldercare-fall-detection"
+version = "0.1.0"
+description = "Privacy-preserving skeleton-based fall detection for elder care"
+requires-python = ">=3.11"
+
+# Minimal runtime for the MVP (heuristic baseline + WS hub + synthetic edge).
+# The full research stack (torch, mediapipe, onnx, ...) lives in requirements.txt.
+dependencies = [
+    "numpy>=1.26,<3.0",
+    "fastapi>=0.110,<1.0",
+    "uvicorn[standard]>=0.29,<1.0",
+    "websockets>=12.0,<13.0",
+    "pydantic>=2.6,<3.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0,<9.0"]
+# Real-webcam edge mode (MediaPipe BlazePose on CPU): pip install -e ".[camera]"
+camera = ["mediapipe>=0.10,<0.11", "opencv-python>=4.9,<5.0"]
+
+# The shared library lives in core/eldercare; expose it as the `eldercare`
+# package without a src/ layout move.
+[tool.setuptools.packages.find]
+where = ["core"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,35 @@
+# CTR-GCN fall classifier — sample hyperparameters
+# (values reflect the research doc's §6/§7 budget; tune before freezing)
+
+model:
+  name: ctrgcn            # stgcn | ctrgcn | poseconv3d
+  num_joints: 17          # COCO order
+  num_classes: 2          # fall / not-fall
+  confidence_gating: true # mask + temporally impute low-score joints
+
+temporal:
+  window_T: 32            # frames per clip (ablate 16/32/64)
+  stride: 4               # classifier runs every Nth frame on the rolling window
+
+pose:
+  backend: movenet-thunder  # lightning (fast) | thunder | blazepose
+  input_size: 256
+
+train:
+  epochs: 80
+  batch_size: 64
+  lr: 0.001
+  optimizer: adamw
+  weight_decay: 0.0005
+  seed: 42
+  datasets: [up-fall, ntu-fall-adl]   # training pool (subject-wise split)
+
+alarm:
+  tau: 0.6                # probability threshold
+  ema_alpha: 0.3          # EMA smoothing
+  confirm_k: 5            # k of last m frames above tau
+  confirm_m: 8            # ~0.7 s confirmation window
+
+export:
+  opset: 17
+  int8: true              # INT8 quantization for the Pi

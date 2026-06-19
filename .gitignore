@@ -1,0 +1,35 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Models (exported weights are large / regenerated)
+models/*.onnx
+*.onnx
+
+# Data (raw datasets never committed)
+data/raw/
+data/**/raw/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Node / frontend
+node_modules/
+dist/
+.vite/
+
+# Misc
+.DS_Store
+*.log
+
+# Dev artifacts
+.playwright-mcp/
+dashboard-live.png
+*.egg-info/
