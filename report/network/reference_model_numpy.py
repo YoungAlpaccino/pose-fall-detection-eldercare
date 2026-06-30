@@ -103,7 +103,7 @@ def forward_shapes(cfg: ModelConfig, kind: str) -> None:
 
 def main() -> None:
     cfg = ModelConfig()
-    print("Reference fall-classification network — torch-free verification")
+    print("Reference fall-classification network - torch-free verification")
     print("(random/illustrative dimensions only; NO pretrained weights)\n")
 
     # adjacency sanity
@@ -124,7 +124,7 @@ def main() -> None:
         print(f"    {kind.upper():7s}  {n:>10,d} params   (~{n/1e6:.2f} M, "
               f"~{n*4/1e6:.1f} MB FP32 / ~{n/1e6:.1f} MB INT8)")
 
-    print("\n  Both fit the < 25 MB on-device footprint budget (research doc §7).")
+    print("\n  Both fit the < 25 MB on-device footprint budget (research doc sec.7).")
     print("  Run report/network/reference_model.py with PyTorch installed to")
     print("  execute the real forward pass and confirm these exact counts.")
 
